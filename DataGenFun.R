@@ -126,17 +126,3 @@ DGP = function(n, coef, sigma, tau, dim = c(10,10,10)) {
   return(rtn)
 }
 
-X_unfold = function(tnsrls, mode){
-  #vectorize tensor X_i by vectorize mode-k matricization of X_i---vec(X_(k))
-  #and storage in a n-row matrix
-  ###tnsrls: a list of tensor
-  n = length(tnsrls)
-  dim = tnsrls[[1]]@modes
-  xvec = k_unfold(tnsrls[[1]],mode)
-  X_vec = matrix(xvec@data,nrow = 1)
-  for (i in 2:n) {
-    xvec = k_unfold(tnsrls[[i]],mode)
-    X_vec = rbind(X_vec,matrix(xvec@data,nrow = 1))
-  }
-  return(X_vec)
-}
